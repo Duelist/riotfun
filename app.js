@@ -1,5 +1,4 @@
 var express = require('express'),
-    settings = require('./settings.json'),
     router = express.Router(),
     app = express();
 
@@ -11,7 +10,7 @@ router.get('/', function (req, res) {
  
 router.post('/', function (req, res) {
   var options = {
-    url: settings['post_endpoint'],
+    url: process.env.POST_ENDPOINT,
     body: '{ "text": "Vayne is the best ADC ever." }'
   };
 
