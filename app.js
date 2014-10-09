@@ -9,7 +9,7 @@ router.get('/', function (request, response) {
 });
  
 router.post('/', function (request, response) {
-  console.log('hi');
+  app.logger.info('Hit!');
 });
  
 app.use('/', router);
