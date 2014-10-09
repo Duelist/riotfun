@@ -1,0 +1,9 @@
+{
+  "name": "riotfun",
+  "version": "0.0.1",
+  "description": "riot fun",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.9.6"
+  }
+}
