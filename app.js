@@ -1,6 +1,10 @@
 var express = require('express'),
     router = express.Router(),
     app = express();
+
+router.get('/', function (request, response) {
+  response.sendStatus(200);
+});
  
 router.post('/', function (request, response) {
   console.log('hi');
@@ -8,4 +12,4 @@ router.post('/', function (request, response) {
  
 app.use('/', router);
  
-app.listen(3000);
+app.listen(80);
