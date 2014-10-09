@@ -4,6 +4,7 @@
   "description": "riot fun",
   "main": "app.js",
   "dependencies": {
-    "express": "^4.9.6"
+    "express": "^4.9.6",
+    "request": "^2.45.0"
   }
 }

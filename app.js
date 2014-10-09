@@ -1,4 +1,5 @@
 var express = require('express'),
+    request = require('request'),
     router = express.Router(),
     app = express();
 
@@ -14,7 +15,7 @@ router.post('/', function (req, res) {
     body: '{ "text": "Vayne is the best ADC ever." }'
   };
 
-  req.post(options, function (error, response, body) {
+  request.post(options, function (error, response, body) {
     if (!error && response.statusCode === 200) {
       console.log('Successful POST.');
     }
