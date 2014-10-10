@@ -59,15 +59,29 @@ module.exports = function () {
 			if (!most_recent_game.stats.win){
 				wonStr = "lost";
 			}
-
-            return callback(create_response({
-              'summoner_id': json_body.summonerId,
-              'summoner_name': summoner_name,
-              'kills': most_recent_game.stats.championsKilled || 0,
-              'deaths': most_recent_game.stats.numDeaths || 0,
-              'assists': most_recent_game.stats.assists || 0,
-              'won': wonStr
-            }));
+			
+			var championId = most_recent_game.championId;
+			recentChampion = {
+            url: 'https://na.api.pvp.net/api/lol/' +
+              region +
+              '/v1.2/champion/' +
+              championId +
+              '?api_key=' + 
+              api_key
+			request.get(recentChampion, function (error, response, body){
+				var championObj,
+					var champ_json_body = JSON.parse(body),
+				});
+				return callback(create_response({
+				  'summoner_id': json_body.summonerId,
+				  'summoner_name': summoner_name,
+				  'kills': most_recent_game.stats.championsKilled || 0,
+				  'deaths': most_recent_game.stats.numDeaths || 0,
+				  'assists': most_recent_game.stats.assists || 0,
+				  'won': wonStr,
+				  'champ_name': champ_json_body.name
+				}));
+			};
           });
         } else {
           return callback(create_response(null, 404, 'Summoner not found.'));
