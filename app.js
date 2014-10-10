@@ -72,7 +72,7 @@ function create_slack_message(channel, icon_url, username, text) {
   text = text || '';
 
   return {
-    channel: channel
+    channel: channel,
     username: username,
     icon_url: icon_url,
     text: text
