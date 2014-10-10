@@ -34,7 +34,7 @@ router.post('/', function (req, res) {
         ' last game." }';
     } else {
       options.body = '{ "text": "' +
-        data.meta.message
+        data.meta.message +
         '" }';
     }
 
