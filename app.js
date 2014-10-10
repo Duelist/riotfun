@@ -16,11 +16,9 @@ router.get('/', function (req, res) {
 });
  
 router.post('/', function (req, res) {
-  console.log(req.params);
-  console.log(req.query);
-  console.log(req.body);
+  var tokens = req.body.text.split(' ');
 
-  rito_pls.last_game_kda('duelistxi', function (data) {
+  rito_pls.last_game_kda(tokens[1], function (data) {
     var options = {
       url: process.env.POST_ENDPOINT
     };
