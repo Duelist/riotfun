@@ -1,10 +1,13 @@
 var express = require('express'),
     request = require('request'),
+    body_parser = require('body-parser'),
     rito_pls = require('./modules/rito_pls'),
     router = express.Router(),
     app = express();
 
 app.set('port', (process.env.PORT || 5000));
+
+app.use(body_parser.json());
 
 router.get('/', function (req, res) {
   rito_pls.last_game_kda('duelistxi',console.log); 
@@ -12,8 +15,10 @@ router.get('/', function (req, res) {
 });
  
 router.post('/', function (req, res) {
-  console.log(req.query);
-  console.log(req.params);
+  console.log('Query: ' + req.query);
+  console.log('Params: ' + req.params);
+  console.log('Body: ' + req.body);
+
   rito_pls.last_game_kda('duelistxi', function (data) {
     var options = {
       url: process.env.POST_ENDPOINT
@@ -34,10 +39,15 @@ router.post('/', function (req, res) {
     request.post(options, function (error, response, body) {
       if (!error && response.statusCode === 200) {
         console.log('Successful POST.');
+        res.sendStatus(200);
       }
     });
   });
 });
+
+function tokenize_command(command) {
+  var tokens = command.split(' ');
+}
  
 app.use('/', router);
  
