@@ -30,11 +30,12 @@ router.post('/', function (req, res) {
         channel: ['#', req.body.channel_name].join(''),
         text: ['@', req.body.user_name, ': ',
           data.result.summoner_name,
-          ' had a KDA of ',
+          ' has ',
+		  data.result.won, ' the last game with a KDA of ',
           data.result.kills, ' / ',
           data.result.deaths, ' / ',
           data.result.assists,
-          ' last game.'].join('')
+          '.'].join('')
       };
     } else {
       // Generalize this
