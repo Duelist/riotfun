@@ -11,8 +11,6 @@ router.get('/', function (req, res) {
 });
  
 router.post('/', function (req, res) {
-  
-
   rito_pls.last_game_kda('45436672', function (result) {
     var options = {
       url: process.env.POST_ENDPOINT,
@@ -24,10 +22,7 @@ router.post('/', function (req, res) {
         result.assists + ' last game." }'
     };
 
-    console.log(options);
-
     request.post(options, function (error, response, body) {
-      console.log(body);
       if (!error && response.statusCode === 200) {
         console.log('Successful POST.');
       }
