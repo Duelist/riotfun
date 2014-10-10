@@ -81,7 +81,7 @@ module.exports = function () {
                 'deaths': most_recent_game.stats.numDeaths || 0,
                 'assists': most_recent_game.stats.assists || 0,
                 'won': wonStr,
-                'champ_name': champ_json_body.name
+                'champ_name': championId
               }));
             });
           });

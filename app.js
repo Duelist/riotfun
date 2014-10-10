@@ -29,7 +29,7 @@ router.post('/', function (req, res) {
       options.body = {
         channel: ['#', req.body.channel_name].join(''),
         username:[data.result.champ_name,'says: '].join(''),
-        //icon_url:["https://files.slack.com/files-pri/T02NRS0CK-F02P8KAPN/", data.result.champ_name, ".png"].join(''),
+        icon_url:["https://files.slack.com/files-pri/T02NRS0CK-F02P8KAPN/", data.result.champ_name, ".png"].join(''),
         text: ['@', req.body.user_name, ': ',
         data.result.summoner_name,
         ' with ',
