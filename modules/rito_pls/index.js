@@ -63,11 +63,11 @@ module.exports = function () {
             }
 			
             recent_champion_options = {
-              url: 'https://na.api.pvp.net/api/lol/' +
+              url: 'https://na.api.pvp.net/api/lol/static-data/' +
                 region +
                 '/v1.2/champion/' +
                 most_recent_game.championId +
-                '?api_key=' + 
+                '?api_key=' +
                 api_key
             };
 
@@ -81,7 +81,7 @@ module.exports = function () {
                 'deaths': most_recent_game.stats.numDeaths || 0,
                 'assists': most_recent_game.stats.assists || 0,
                 'won': wonStr,
-                'champ_name': championId
+                'champ_name': champ_json_body.name
               }));
             });
           });
