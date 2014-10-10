@@ -52,7 +52,7 @@ router.post('/', function (req, res) {
 
     request.post(options, function (error, response, body) {
       if (!error && response.statusCode === 200) {
-        console.log('Successful POST.');
+        console.log('[INFO] Successful POST.');
         res.sendStatus(200);
       }
     });
