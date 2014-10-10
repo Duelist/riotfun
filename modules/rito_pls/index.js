@@ -56,7 +56,7 @@ module.exports = function () {
 
             most_recent_game = games_list[0];
 			var wonStr = "won";
-			if (most_recent_game.stats.win){
+			if (!most_recent_game.stats.win){
 				wonStr = "lost";
 			}
 
