@@ -55,6 +55,10 @@ module.exports = function () {
             });
 
             most_recent_game = games_list[0];
+			var wonStr = "won";
+			if (most_recent_game.stats.win){
+				wonStr = "lost";
+			}
 
             return callback(create_response({
               'summoner_id': json_body.summonerId,
@@ -62,7 +66,7 @@ module.exports = function () {
               'kills': most_recent_game.stats.championsKilled || 0,
               'deaths': most_recent_game.stats.numDeaths || 0,
               'assists': most_recent_game.stats.assists || 0,
-              'won': most_recent_game.stats.win
+              'won': wonStr;
             }));
           });
         } else {
