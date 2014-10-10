@@ -25,27 +25,30 @@ router.post('/', function (req, res) {
     };
 
     if (data.meta.code === 200) {
-      // Generalize this
-      options.body = {
-        channel: ['#', req.body.channel_name].join(''),
-        username:[data.result.champ_name,'says: '].join(''),
-        //icon_url:["https://files.slack.com/files-pri/T02NRS0CK-F02P8KAPN/", data.result.champ_name, ".png"].join(''),
-        text: ['@', req.body.user_name, ': ',
-        data.result.summoner_name,
-        ' has ',
-        data.result.won, ' the last game with a KDA of ',
-        data.result.kills, ' / ',
-        data.result.deaths, ' / ',
-        data.result.assists,
-        '.'].join('')
-      };
+      options.body = create_slack_message(
+        ['#', req.body.channel_name].join(''),
+        '',
+        [data.result.champ_name, 'says: '].join(''),
+        [
+          '@', req.body.user_name, ': ',
+          data.result.summoner_name,
+          data.result.won, ' the last game with a KDA of ',
+          data.result.kills, ' / ',
+          data.result.deaths, ' / ',
+          data.result.assists,
+          '.'
+        ].join('')
+      );
     } else {
-      // Generalize this
-      options.body = {
-        channel: ['#', req.body.channel_name].join(''),
-        text: ['@', req.body.user_name, ': ',
-        data.meta.message].join('')
-      };
+      options.body = create_slack_message(
+        ['#', req.body.channel_name].join(''),
+        '',
+        '',
+        [
+          '@', req.body.user_name, ': ',
+          data.meta.message
+        ].join('')
+      );
     }
 
     options.body = JSON.stringify(options.body);
@@ -58,6 +61,20 @@ router.post('/', function (req, res) {
     });
   });
 });
+
+function create_slack_message(channel, icon_url, username, text) {
+  channel = channel || '';
+  icon_url = icon_url || '';
+  username = username || '';
+  text = text || '';
+
+  return {
+    channel: channel
+    username: username,
+    icon_url: icon_url,
+    text: text
+  };
+}
 
 app.use('/', router);
  
