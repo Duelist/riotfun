@@ -36,6 +36,8 @@ router.post('/', function (req, res) {
       options.body = data.meta.message;
     }
 
+    console.log(data);
+
     request.post(options, function (error, response, body) {
       if (!error && response.statusCode === 200) {
         console.log('Successful POST.');
