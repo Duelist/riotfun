@@ -35,7 +35,6 @@ router.post('/', function (req, res) {
           data.result.deaths, ' / ',
           data.result.assists,
           'last game.'].join('')
-        )
       };
     } else {
       // Generalize this
@@ -43,7 +42,6 @@ router.post('/', function (req, res) {
         channel: ['#', req.body.channel_name].join(''),
         text: ['@', req.body.user_name, ': ',
           data.meta.message].join('')
-        )
       };
     }
 
