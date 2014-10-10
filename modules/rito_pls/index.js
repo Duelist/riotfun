@@ -66,7 +66,7 @@ module.exports = function () {
               'kills': most_recent_game.stats.championsKilled || 0,
               'deaths': most_recent_game.stats.numDeaths || 0,
               'assists': most_recent_game.stats.assists || 0,
-              'won': wonStr;
+              'won': wonStr
             }));
           });
         } else {
