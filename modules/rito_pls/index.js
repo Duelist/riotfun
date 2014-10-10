@@ -32,9 +32,9 @@ module.exports = function () {
 
       request.get(summoner_name_options, function (error, response, body) {
         var json_body,
-          recent_games_options;
-        var champ_json_body,
-          recentChampion;
+            recent_games_options,
+            champ_json_body,
+            recentChampion;
 
         if (!error && response.statusCode === 200) {
           json_body = JSON.parse(body);
@@ -49,31 +49,31 @@ module.exports = function () {
 
           request.get(recent_games_options, function (error, response, body) {
             var most_recent_game,
-              json_body = JSON.parse(body),
-              games_list = json_body.games;
+                json_body = JSON.parse(body),
+                games_list = json_body.games,
+                wonStr = "won";
 
             games_list = games_list.sort(function (a, b) {
               return a.create_date > b.create_date;
             });
 
             most_recent_game = games_list[0];
-            var wonStr = "won";
             if (!most_recent_game.stats.win){
               wonStr = "lost";
             }
 			
-            var championId = most_recent_game.championId;
-            recentChampion = {
+            recent_champion_options = {
               url: 'https://na.api.pvp.net/api/lol/' +
-              region +
-              '/v1.2/champion/' +
-              championId +
-              '?api_key=' + 
-              api_key
+                region +
+                '/v1.2/champion/' +
+                most_recent_game.championId +
+                '?api_key=' + 
+                api_key
             };
-            request.get(recentChampion, function (error, response, body){
-              var championObj,
-                champ_json_body = JSON.parse(body);
+
+            request.get(recent_champion_options, function (error, response, body){
+              var champ_json_body = JSON.parse(body);
+
               return callback(create_response({
                 'summoner_id': json_body.summonerId,
                 'summoner_name': summoner_name,
