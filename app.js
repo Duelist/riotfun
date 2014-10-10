@@ -37,6 +37,7 @@ router.post('/', function (req, res) {
     }
 
     console.log(data);
+    console.log(options);
 
     request.post(options, function (error, response, body) {
       if (!error && response.statusCode === 200) {
