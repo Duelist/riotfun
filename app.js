@@ -1,5 +1,6 @@
 var express = require('express'),
     request = require('request'),
+    rito_pls = require('./modules/rito_pls'),
     router = express.Router(),
     app = express();
 
@@ -15,10 +16,19 @@ router.post('/', function (req, res) {
     body: '{ "text": "Vayne is the best ADC ever." }'
   };
 
-  request.post(options, function (error, response, body) {
-    if (!error && response.statusCode === 200) {
-      console.log('Successful POST.');
-    }
+  rito_pls.last_game_kda('45436672', function (result) {
+    options.body = '{ "text": "' +
+      result.summoner_name +
+      '\'s had a KDA of ' +
+      result.kills + ' / ' +
+      result.deaths + ' / ' +
+      result.assists + ' last game." }';
+
+    request.post(options, function (error, response, body) {
+      if (!error && response.statusCode === 200) {
+        console.log('Successful POST.');
+      }
+    });
   });
 });
  
