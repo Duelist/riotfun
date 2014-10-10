@@ -33,6 +33,8 @@ module.exports = function () {
       request.get(summoner_name_options, function (error, response, body) {
         var json_body,
           recent_games_options;
+        var champ_json_body,
+          recentChampion;
 
         if (!error && response.statusCode === 200) {
           json_body = JSON.parse(body);
@@ -47,8 +49,8 @@ module.exports = function () {
 
           request.get(recent_games_options, function (error, response, body) {
             var most_recent_game,
-                json_body = JSON.parse(body),
-                games_list = json_body.games;
+              json_body = JSON.parse(body),
+              games_list = json_body.games;
 
             games_list = games_list.sort(function (a, b) {
               return a.create_date > b.create_date;
