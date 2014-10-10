@@ -73,7 +73,7 @@ module.exports = function () {
             };
             request.get(recentChampion, function (error, response, body){
               var championObj,
-                var champ_json_body = JSON.parse(body);
+                champ_json_body = JSON.parse(body);
               return callback(create_response({
                 'summoner_id': json_body.summonerId,
                 'summoner_name': summoner_name,
