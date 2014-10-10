@@ -7,7 +7,7 @@ var express = require('express'),
 
 app.set('port', (process.env.PORT || 5000));
 
-app.use(body_parser.json());
+// app.use(body_parser.json());
 
 router.get('/', function (req, res) {
   rito_pls.last_game_kda('duelistxi',console.log); 
@@ -15,7 +15,9 @@ router.get('/', function (req, res) {
 });
  
 router.post('/', function (req, res) {
-  console.log(req.param('text'));
+  console.log(req.params);
+  console.log(req.body);
+  console.log(req.query);
 
   rito_pls.last_game_kda('duelistxi', function (data) {
     var options = {
