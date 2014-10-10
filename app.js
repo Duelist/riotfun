@@ -34,7 +34,7 @@ router.post('/', function (req, res) {
           data.result.kills, ' / ',
           data.result.deaths, ' / ',
           data.result.assists,
-          'last game.'].join('')
+          ' last game.'].join('')
       };
     } else {
       // Generalize this
