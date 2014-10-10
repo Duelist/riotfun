@@ -7,7 +7,7 @@ var express = require('express'),
 
 app.set('port', (process.env.PORT || 5000));
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(body_parser.urlencoded({ extended: false }));
 app.use(body_parser.json());
 
 router.get('/', function (req, res) {
