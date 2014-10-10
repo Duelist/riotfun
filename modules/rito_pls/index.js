@@ -5,27 +5,46 @@ module.exports = function () {
       region = process.env.RIOT_REGION,
       api_key = process.env.RIOT_API_KEY;
 
+  function create_response(data, code, message) {
+    data = data || {};
+    code = code || 200;
+    message = message || 'OK';
+
+    return {
+      meta: {
+        code: code,
+        message: message
+      },
+      result: data
+    }
+  }
+
   return {
-    last_game_kda: function last_game_kda(summoner_id, callback) {
-      var recent_games_options = {
-            url: 'https://na.api.pvp.net/api/lol/' +
-              region +
-              '/v1.3/game/by-summoner/' +
-              summoner_id +
-              '/recent?api_key=' + 
-              api_key
-          },
-          summoner_name_options = {
+    last_game_kda: function last_game_kda(summoner_name, callback) {
+      var summoner_name_options = {
             url: 'https://na.api.pvp.net/api/lol/' +
               region + 
-              '/v1.4/summoner/' +
-              summoner_id +
-              '/name?api_key=' +
+              '/v1.4/summoner/by-name/' +
+              summoner_name +
+              '?api_key=' +
               api_key
           };
 
-      async.series([
-        function (cb) {
+      request.get(summoner_name_options, function (error, response, body) {
+        var json_body,
+            recent_games_options;
+
+        if (!error && response.statusCode === 200) {
+          json_body = JSON.parse(body);
+          recent_games_options = {
+            url: 'https://na.api.pvp.net/api/lol/' +
+              region +
+              '/v1.3/game/by-summoner/' +
+              json_body[summoner_name]['id'] +
+              '/recent?api_key=' + 
+              api_key
+          };
+
           request.get(recent_games_options, function (error, response, body) {
             var most_recent_game,
                 json_body = JSON.parse(body),
@@ -37,29 +56,18 @@ module.exports = function () {
 
             most_recent_game = games_list[0];
 
-            cb(null, {
+            return callback(create_response({
               'summoner_id': json_body.summonerId,
+              'summoner_name': summoner_name,
               'kills': most_recent_game.stats.championsKilled,
               'deaths': most_recent_game.stats.numDeaths,
               'assists': most_recent_game.stats.assists,
               'won': most_recent_game.stats.win
-            });
-          })
-        },
-        function (cb) {
-          request.get(summoner_name_options, function (error, response, body) {
-            cb(null, JSON.parse(body));
-          })
+            }));
+          });
+        } else {
+          return callback(create_response(null, 404, 'Summoner not found.'));
         }
-      ], function (error, results) {
-        return callback({
-          'summoner_id': results[0].summoner_id,
-          'summoner_name': results[1][results[0].summoner_id],
-          'kills': results[0].kills,
-          'deaths': results[0].deaths,
-          'assists': results[0].assists,
-          'won': results[0].won
-        });
       });
     }
   };
