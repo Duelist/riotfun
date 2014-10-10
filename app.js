@@ -25,18 +25,31 @@ router.post('/', function (req, res) {
     };
 
     if (data.meta.code === 200) {
-      options.body = '{ "text": "' +
-        data.result.summoner_name +
-        ' had a KDA of ' +
-        data.result.kills + ' / ' +
-        data.result.deaths + ' / ' +
-        data.result.assists +
-        ' last game." }';
+      // Generalize this
+      options.body = {
+        channel: ''.join('#', req.body.channel_name),
+        text: ''.join(
+          '@', req.body.user_name, ': ',
+          data.result.summoner_name,
+          ' had a KDA of ',
+          data.result.kills, ' / ',
+          data.result.deaths, ' / ',
+          data.result.assists,
+          'last game.'
+        )
+      };
     } else {
-      options.body = '{ "text": "' +
-        data.meta.message +
-        '" }';
+      // Generalize this
+      options.body = {
+        channel: ''.join('#', req.body.channel_name),
+        text: ''.join(
+          '@', req.body.user_name, ': ',
+          data.meta.message
+        )
+      };
     }
+
+    options.body = JSON.stringify(options.body);
 
     request.post(options, function (error, response, body) {
       if (!error && response.statusCode === 200) {
