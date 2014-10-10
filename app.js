@@ -15,9 +15,7 @@ router.get('/', function (req, res) {
 });
  
 router.post('/', function (req, res) {
-  console.log('Query: ' + req.query);
-  console.log('Params: ' + req.params);
-  console.log('Body: ' + req.body);
+  console.log(req.body);
 
   rito_pls.last_game_kda('duelistxi', function (data) {
     var options = {
