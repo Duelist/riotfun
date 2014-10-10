@@ -28,23 +28,23 @@ router.post('/', function (req, res) {
       // Generalize this
       options.body = {
         channel: ['#', req.body.channel_name].join(''),
-		username:[data.result.champ_name,'says: '].join(''),
-		//icon_url:["https://files.slack.com/files-pri/T02NRS0CK-F02P8KAPN/", data.result.champ_name, ".png"].join(''),
+        username:[data.result.champ_name,'says: '].join(''),
+        //icon_url:["https://files.slack.com/files-pri/T02NRS0CK-F02P8KAPN/", data.result.champ_name, ".png"].join(''),
         text: ['@', req.body.user_name, ': ',
-          data.result.summoner_name,
-          ' has ',
-		  data.result.won, ' the last game with a KDA of ',
-          data.result.kills, ' / ',
-          data.result.deaths, ' / ',
-          data.result.assists,
-          '.'].join('')
+        data.result.summoner_name,
+        ' has ',
+        data.result.won, ' the last game with a KDA of ',
+        data.result.kills, ' / ',
+        data.result.deaths, ' / ',
+        data.result.assists,
+        '.'].join('')
       };
     } else {
       // Generalize this
       options.body = {
         channel: ['#', req.body.channel_name].join(''),
         text: ['@', req.body.user_name, ': ',
-          data.meta.message].join('')
+        data.meta.message].join('')
       };
     }
 
