@@ -11,18 +11,18 @@ router.get('/', function (req, res) {
 });
  
 router.post('/', function (req, res) {
-  var options = {
-    url: process.env.POST_ENDPOINT,
-    body: '{ "text": "Vayne is the best ADC ever." }'
-  };
+  
 
   rito_pls.last_game_kda('45436672', function (result) {
-    options.body = '{ "text": "' +
-      result.summoner_name +
-      '\'s had a KDA of ' +
-      result.kills + ' / ' +
-      result.deaths + ' / ' +
-      result.assists + ' last game." }';
+    var options = {
+      url: process.env.POST_ENDPOINT,
+      body: '{ "text": "' +
+        result.summoner_name +
+        '\'s had a KDA of ' +
+        result.kills + ' / ' +
+        result.deaths + ' / ' +
+        result.assists + ' last game." }'
+    };
 
     console.log(options);
 
