@@ -16,7 +16,7 @@ router.post('/', function (req, res) {
       url: process.env.POST_ENDPOINT,
       body: '{ "text": "' +
         result.summoner_name +
-        '\'s had a KDA of ' +
+        ' had a KDA of ' +
         result.kills + ' / ' +
         result.deaths + ' / ' +
         result.assists + ' last game." }'
