@@ -24,7 +24,10 @@ router.post('/', function (req, res) {
       result.deaths + ' / ' +
       result.assists + ' last game." }';
 
+    console.log(options);
+
     request.post(options, function (error, response, body) {
+      console.log(body);
       if (!error && response.statusCode === 200) {
         console.log('Successful POST.');
       }
