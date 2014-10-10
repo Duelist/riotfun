@@ -33,11 +33,10 @@ router.post('/', function (req, res) {
         data.result.assists +
         ' last game." }';
     } else {
-      options.body = data.meta.message;
+      options.body = '{ "text": "' +
+        data.meta.message
+        '" }';
     }
-
-    console.log(data);
-    console.log(options);
 
     request.post(options, function (error, response, body) {
       if (!error && response.statusCode === 200) {
