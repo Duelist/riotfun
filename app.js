@@ -32,6 +32,8 @@ router.post('/', function (req, res) {
         //icon_url:["https://files.slack.com/files-pri/T02NRS0CK-F02P8KAPN/", data.result.champ_name, ".png"].join(''),
         text: ['@', req.body.user_name, ': ',
         data.result.summoner_name,
+        ' with ',
+        data.result.champ_name,
         ' has ',
         data.result.won, ' the last game with a KDA of ',
         data.result.kills, ' / ',
