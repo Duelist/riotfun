@@ -27,24 +27,22 @@ router.post('/', function (req, res) {
     if (data.meta.code === 200) {
       // Generalize this
       options.body = {
-        channel: ''.join('#', req.body.channel_name),
-        text: ''.join(
-          '@', req.body.user_name, ': ',
+        channel: ['#', req.body.channel_name].join(''),
+        text: ['@', req.body.user_name, ': ',
           data.result.summoner_name,
           ' had a KDA of ',
           data.result.kills, ' / ',
           data.result.deaths, ' / ',
           data.result.assists,
-          'last game.'
+          'last game.'].join('')
         )
       };
     } else {
       // Generalize this
       options.body = {
-        channel: ''.join('#', req.body.channel_name),
-        text: ''.join(
-          '@', req.body.user_name, ': ',
-          data.meta.message
+        channel: ['#', req.body.channel_name].join(''),
+        text: ['@', req.body.user_name, ': ',
+          data.meta.message].join('')
         )
       };
     }
