@@ -44,10 +44,6 @@ router.post('/', function (req, res) {
   });
 });
 
-function tokenize_command(command) {
-  var tokens = command.split(' ');
-}
- 
 app.use('/', router);
  
 app.listen(app.get('port'));

@@ -59,9 +59,9 @@ module.exports = function () {
             return callback(create_response({
               'summoner_id': json_body.summonerId,
               'summoner_name': summoner_name,
-              'kills': most_recent_game.stats.championsKilled,
-              'deaths': most_recent_game.stats.numDeaths,
-              'assists': most_recent_game.stats.assists,
+              'kills': most_recent_game.stats.championsKilled || 0,
+              'deaths': most_recent_game.stats.numDeaths || 0,
+              'assists': most_recent_game.stats.assists || 0,
               'won': most_recent_game.stats.win
             }));
           });
