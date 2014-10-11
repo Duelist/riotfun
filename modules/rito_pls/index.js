@@ -103,7 +103,7 @@ module.exports = function () {
         else {
           return callback(create_response(null, 404, 'Champion not found.'));
         }
-      }
+      });
     }
   }
 }();
