@@ -65,7 +65,7 @@ router.post('/', function (req, res) {
     });
   }
   else if (command == "summon"){
-    champion_summon(param, function(data){
+    rito_pls.champion_summon(param, function(data){
       var options = {
         url: process.env.POST_ENDPOINT
       };
