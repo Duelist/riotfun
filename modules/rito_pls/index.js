@@ -90,6 +90,22 @@ module.exports = function () {
         }
       });
     }
+    
+    champion_summon: function champion_summon(champion_name, callback) {
+      var championOptions = {
+        url: "https://dl.dropboxusercontent.com/u/19958428/" + champion_name +".png"
+      };
+      request.get(championOptions, function (error, response, body){
+        if (!error && response.statusCode === 200){
+          return callback(create_response({
+            'champ_name': champion_name
+          }));
+        }
+        else {
+          return callback(create_response(null, 404, 'Champion not found.'));
+        }
+      }
+    }
   };
 }();
 

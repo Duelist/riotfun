@@ -17,50 +17,94 @@ router.get('/', function (req, res) {
  
 router.post('/', function (req, res) {
   var tokens = req.body.text.split(' '),
-      summoner_name = tokens[1] || 'duelistxi';
+    command = tokens[1] || 'recentkda';
+    param = tokens[2] || 'duelistxi';
+      
+  if (command == "recentkda"){
+    rito_pls.last_game_kda(param, function (data) {
+      var options = {
+        url: process.env.POST_ENDPOINT
+      };
 
-  rito_pls.last_game_kda(summoner_name, function (data) {
-    var options = {
-      url: process.env.POST_ENDPOINT
-    };
-
-    if (data.meta.code === 200) {
-      options.body = create_slack_message(
-        ['#', req.body.channel_name].join(''),
-        ["https://dl.dropboxusercontent.com/u/19958428/", data.result.champ_name,".png"].join(''),
-        [data.result.champ_name, ' says: '].join(''),
-        [
-          '@', req.body.user_name, ': ',
-          data.result.summoner_name,
-          ' We ',
-          data.result.won, ' the last game with a KDA of ',
-          data.result.kills, ' / ',
-          data.result.deaths, ' / ',
-          data.result.assists,
-          '.'
-        ].join('')
-      );
-    } else {
-      options.body = create_slack_message(
-        ['#', req.body.channel_name].join(''),
-        '',
-        '',
-        [
-          '@', req.body.user_name, ': ',
-          data.meta.message
-        ].join('')
-      );
-    }
-
-    options.body = JSON.stringify(options.body);
-
-    request.post(options, function (error, response, body) {
-      if (!error && response.statusCode === 200) {
-        console.log('[INFO] Successful POST.');
-        res.sendStatus(200);
+      if (data.meta.code === 200) {
+        options.body = create_slack_message(
+          ['#', req.body.channel_name].join(''),
+          ["https://dl.dropboxusercontent.com/u/19958428/", data.result.champ_name,".png"].join(''),
+          [data.result.champ_name, ' says: '].join(''),
+          [
+            '@', req.body.user_name, ': ',
+            data.result.summoner_name,
+            ' we ',
+            data.result.won, ' the last game with a KDA of ',
+            data.result.kills, ' / ',
+            data.result.deaths, ' / ',
+            data.result.assists,
+            '.'
+          ].join('')
+        );
+      } else {
+        options.body = create_slack_message(
+          ['#', req.body.channel_name].join(''),
+          '',
+          '',
+          [
+            '@', req.body.user_name, ': ',
+            data.meta.message
+          ].join('')
+        );
       }
+
+      options.body = JSON.stringify(options.body);
+
+      request.post(options, function (error, response, body) {
+        if (!error && response.statusCode === 200) {
+          console.log('[INFO] Successful POST.');
+          res.sendStatus(200);
+        }
+      });
     });
-  });
+  }
+  else if (command == "summon"){
+    champion_summon(param, function(data){
+      var options = {
+        url: process.env.POST_ENDPOINT
+      };
+    }
+    
+    if (data.meta.code === 200) {
+        options.body = create_slack_message(
+          ['#', req.body.channel_name].join(''),
+          ["https://dl.dropboxusercontent.com/u/19958428/", data.result.champ_name,".png"].join(''),
+          [data.result.champ_name, ' says: '].join(''),
+          [
+            '@', req.body.user_name, ': ',
+            ' You called? ',
+          ].join('')
+        );
+      } else {
+        options.body = create_slack_message(
+          ['#', req.body.channel_name].join(''),
+          '',
+          '',
+          [
+            '@', req.body.user_name, ': ',
+            data.meta.message
+          ].join('')
+        );
+      }
+
+      options.body = JSON.stringify(options.body);
+
+      request.post(options, function (error, response, body) {
+        if (!error && response.statusCode === 200) {
+          console.log('[INFO] Successful POST.');
+          res.sendStatus(200);
+        }
+      });
+    });
+  }
+  else {
+  }
 });
 
 function create_slack_message(channel, icon_url, username, text) {
