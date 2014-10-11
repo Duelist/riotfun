@@ -32,9 +32,7 @@ router.post('/', function (req, res) {
         [
           '@', req.body.user_name, ': ',
           data.result.summoner_name,
-          ' with ',
-          data.result.champ_name,
-          ' has ',
+          ' We ',
           data.result.won, ' the last game with a KDA of ',
           data.result.kills, ' / ',
           data.result.deaths, ' / ',
