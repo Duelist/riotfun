@@ -89,7 +89,7 @@ module.exports = function () {
           return callback(create_response(null, 404, 'Summoner not found.'));
         }
       });
-    }
+    },
     
     champion_summon: function champion_summon(champion_name, callback) {
       var championOptions = {
