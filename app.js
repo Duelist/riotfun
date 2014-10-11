@@ -27,7 +27,7 @@ router.post('/', function (req, res) {
     if (data.meta.code === 200) {
       options.body = create_slack_message(
         ['#', req.body.channel_name].join(''),
-        ["https://files.slack.com/files-pri/T02NRS0CK-F02P935NH/morgana.png"].join(''),
+        ["http://lorempixel.com/48/48/"].join(''),
         [data.result.champ_name, 'says: '].join(''),
         [
           '@', req.body.user_name, ': ',
