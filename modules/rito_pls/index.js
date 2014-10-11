@@ -20,7 +20,7 @@ module.exports = function () {
   }
 
   return {
-    last_game_kda: function last_game_kda(summoner_name, callback) {
+    last_game_kda: function (summoner_name, callback) {
       var summoner_name_options = {
         url: 'https://na.api.pvp.net/api/lol/' +
           region + 
@@ -89,9 +89,9 @@ module.exports = function () {
           return callback(create_response(null, 404, 'Summoner not found.'));
         }
       });
-    },
+    }
     
-    champion_summon: function champion_summon(champion_name, callback) {
+    , champion_summon: function (champion_name, callback) {
       var championOptions = {
         url: "https://dl.dropboxusercontent.com/u/19958428/" + champion_name +".png"
       };
