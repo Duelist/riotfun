@@ -20,7 +20,7 @@ router.post('/', function (req, res) {
     command = tokens[1] || 'recentkda';
     param = tokens[2] || 'duelistxi';
       
-  if (command == "recentkda"){
+  if (command == "rkda"){
     rito_pls.last_game_kda(param, function (data) {
       var options = {
         url: process.env.POST_ENDPOINT
