@@ -17,7 +17,7 @@ router.get('/', function (req, res) {
  
 router.post('/', function (req, res) {
   var tokens = req.body.text.split(' '),
-    command = tokens[1] || 'recentkda';
+    command = tokens[1] || 'rkda';
     param = tokens[2] || 'duelistxi';
       
   if (command == "rkda"){
