@@ -29,7 +29,7 @@ router.post('/', function (req, res) {
       if (data.meta.code === 200) {
         options.body = create_slack_message(
           ['#', req.body.channel_name].join(''),
-          ["https://dl.dropboxusercontent.com/u/19958428/", (data.result.champ_name + "").replaceAll(" ", "%20"),".png"].join(''),
+          ["https://dl.dropboxusercontent.com/u/19958428/", (data.result.champ_name + "").replace("/ /g", "%20"),".png"].join(''),
           [data.result.champ_name, ' says: '].join(''),
           [
             '@', req.body.user_name, ': ',
@@ -73,7 +73,7 @@ router.post('/', function (req, res) {
       if (data.meta.code === 200) {
           options.body = create_slack_message(
             ['#', req.body.channel_name].join(''),
-            ["https://dl.dropboxusercontent.com/u/19958428/", (data.result.champ_name + "").replaceAll(" ", "%20"),".png"].join(''),
+            ["https://dl.dropboxusercontent.com/u/19958428/", (data.result.champ_name + "").replace("/ /g", "%20"),".png"].join(''),
             [data.result.champ_name, ' says: '].join(''),
             [
               '@', req.body.user_name, ': ',
