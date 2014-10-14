@@ -19,7 +19,9 @@ router.post('/', function (req, res) {
   var tokens = req.body.text.split(' '),
     command = tokens[1] || 'rkda';
     param = tokens[2] || 'duelistxi';
-      
+  for (var i = 3; i < tokens.length; i++){
+    param += " " + tokens[i];
+  }  
   if (command == "rkda"){
     rito_pls.last_game_kda(param, function (data) {
       var options = {
