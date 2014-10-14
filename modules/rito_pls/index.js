@@ -92,7 +92,7 @@ module.exports = function () {
     }
     , champion_summon: function (champion_name, callback) {
       var championOptions = {
-        url: "https://dl.dropboxusercontent.com/u/19958428/" + champion_name +".png"
+        url: "https://dl.dropboxusercontent.com/u/19958428/" + champion_name.replace(/ /g, "%20") +".png"
       };
       request.get(championOptions, function (error, response, body){
         if (!error && response.statusCode === 200){
