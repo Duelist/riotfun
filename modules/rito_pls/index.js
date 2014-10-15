@@ -25,7 +25,7 @@ module.exports = function () {
         url: 'https://na.api.pvp.net/api/lol/' +
           region + 
           '/v1.4/summoner/by-name/' +
-          summoner_name.to_lower() +
+          summoner_name.toLowerCase() +
           '?api_key=' +
           api_key
       };
