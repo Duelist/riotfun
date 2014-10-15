@@ -42,7 +42,7 @@ module.exports = function () {
             url: 'https://na.api.pvp.net/api/lol/' +
               region +
               '/v1.3/game/by-summoner/' +
-              json_body[summoner_name]['id'] +
+              json_body[summoner_name.toLowerCase()]['id'] +
               '/recent?api_key=' + 
               api_key
           };
