@@ -151,7 +151,7 @@ module.exports = function () {
 
                   return callback(create_response({
                     'summoner_id': json_body.summonerId,
-                    'summoner_name': summoner_name,
+                    'summoner_name': tokens[1],
                     'kills': most_recent_game.stats.championsKilled || 0,
                     'deaths': most_recent_game.stats.numDeaths || 0,
                     'assists': most_recent_game.stats.assists || 0,
