@@ -36,8 +36,8 @@ router.post('/', function (req, res) {
           [
             '@', req.body.user_name, ': ',
             data.result.summoner_name,
-            ' we ',
-            data.result.won, ' the last game with a KDA of ',
+            ' and I ',
+            data.result.won, ' the last game with a K/D/A of ',
             data.result.kills, ' / ',
             data.result.deaths, ' / ',
             data.result.assists,
