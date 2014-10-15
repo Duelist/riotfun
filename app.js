@@ -38,8 +38,8 @@ router.post('/', function (req, res) {
             data.result.summoner_name,
             ' and I ',
             data.result.won, ' the last game with a K/D/A of ',
-            data.result.kills, ' / ',
-            data.result.deaths, ' / ',
+            data.result.kills, '/',
+            data.result.deaths, '/',
             data.result.assists,
             '.'
           ].join('')
