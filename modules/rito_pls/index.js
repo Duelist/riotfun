@@ -93,8 +93,8 @@ module.exports = function () {
         });
       }
       else {
-        var nameString = tokens[1].toLowerCase();
-        for (var i = 2; i < tokens.length; i++){
+        var nameString = tokens[0].toLowerCase();
+        for (var i = 1; i < tokens.length; i++){
           nameString += "," + tokens[i].toLowerCase();
         }
         var summoner_name_options = {
