@@ -93,9 +93,9 @@ module.exports = function () {
         });
       }
       else {
-        var nameString = token[1].toLowerCase();
+        var nameString = tokens[1].toLowerCase();
         for (var i = 2; i < tokens.length; i++){
-          nameString += "," + token[i].toLowerCase();
+          nameString += "," + tokens[i].toLowerCase();
         }
         var summoner_name_options = {
           url: 'https://na.api.pvp.net/api/lol/' +
@@ -112,7 +112,7 @@ module.exports = function () {
               url: 'https://na.api.pvp.net/api/lol/' +
                 region +
                 '/v1.3/game/by-summoner/' +
-                json_body[token[2].toLowerCase()]['id'] +
+                json_body[tokens[2].toLowerCase()]['id'] +
                 '/recent?api_key=' + 
                 api_key
             };
