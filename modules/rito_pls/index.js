@@ -196,6 +196,7 @@ module.exports = function () {
                       'kills': most_recent_game.stats.championsKilled || 0,
                       'deaths': most_recent_game.stats.numDeaths || 0,
                       'assists': most_recent_game.stats.assists || 0,
+                      'gameType': convertGameType(most_recent_game.subType),
                       'won': wonStr,
                       'champ_name': champ_json_body.name
                     }));
