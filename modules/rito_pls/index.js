@@ -127,9 +127,9 @@ module.exports = function () {
           var json_body,
             recent_games_options,
             champ_json_body,
-            recentChampion,
-            summonerId;
+            recentChampion;
           if (!error && response.statusCode === 200) {
+            var summonerId;
             json_body = JSON.parse(body);
             for (var i = 0; i < tokens.length; i++){
               summonerId[i] = json_body[tokens[i].toLowerCase()]['id'];
