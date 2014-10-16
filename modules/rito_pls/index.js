@@ -129,7 +129,7 @@ module.exports = function () {
             champ_json_body,
             recentChampion;
           if (!error && response.statusCode === 200) {
-            var summonerId;
+            var summonerId = [];
             json_body = JSON.parse(body);
             for (var i = 0; i < tokens.length; i++){
               summonerId[i] = json_body[tokens[i].toLowerCase()]['id'];
