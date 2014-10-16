@@ -18,6 +18,22 @@ module.exports = function () {
       result: data
     }
   }
+  
+  function convertGameType(type){
+    var typeRet = "";
+    if (type.indexOf("RANKED") > -1) {
+      typeRet = "ranked";
+    }
+    else if (type.indexOf("NORMAL") > -1){
+      typeRet = "normal";
+    }
+    else {
+      if (type != "undefined"){
+        typeRet = type.toLowerCase();
+      }
+    }
+    return typeRet;
+  }
 
   return {
     last_game_kda: function (summoner_name, callback) {
@@ -82,6 +98,7 @@ module.exports = function () {
                   'kills': most_recent_game.stats.championsKilled || 0,
                   'deaths': most_recent_game.stats.numDeaths || 0,
                   'assists': most_recent_game.stats.assists || 0,
+                  'gameType': convertGameType(most_recent_game.subType),
                   'won': wonStr,
                   'champ_name': champ_json_body.name
                 }));
