@@ -110,55 +110,82 @@ module.exports = function () {
           var json_body,
             recent_games_options,
             champ_json_body,
-            recentChampion;
+            recentChampion,
+            summonerId;
           if (!error && response.statusCode === 200) {
             json_body = JSON.parse(body);
+            for (var i = 0; i < tokens.length; i++){
+              summonerId[i] = json_body[tokens[i].toLowerCase()]['id'];
+            }
             recent_games_options = {
               url: 'https://na.api.pvp.net/api/lol/' +
                 region +
                 '/v1.3/game/by-summoner/' +
-                json_body[tokens[1].toLowerCase()]['id'] +
+                json_body[tokens[0].toLowerCase()]['id'] +
                 '/recent?api_key=' + 
                 api_key
             };
 
             request.get(recent_games_options, function (error, response, body) {
               var most_recent_game,
-                  json_body = JSON.parse(body),
-                  games_list = json_body.games,
-                  wonStr = "won";
+                json_body = JSON.parse(body),
+                games_list = json_body.games,
+                wonStr = "won";
 
-              games_list = games_list.sort(function (a, b) {
-                return a.create_date > b.create_date;
-              });
+                games_list = games_list.sort(function (a, b) {
+                  return a.create_date > b.create_date;
+                });
+                
+                most_recent_game = -1;
+                for (var i = 0; i < games_list.length; i++){
+                  var fellowPlayers = games_list[i].fellowPlayers;
+                  for (var j = 0; j < summonerId.length; j++){
+                    var matchedPlayers = [tokens[0]];
+                    for (var k = 0; k < fellowPlayers.length; k++){
+                      if (summonerId[j] == fellowPlayers[k]['summonerId']){
+                        matchedPlayers.push(summonerId[j]);
+                      }
+                    }
+                    if (matchedPlayers.length == summonerId.length){
+                      most_recent_game = games_list[i];
+                      break;
+                    }
+                  }
+                  if (most_recent_game != -1){
+                    break;
+                  }
+                }
+              if (most_recent_game != -1){
+                if (!most_recent_game.stats.win){
+                  wonStr = "lost";
+                }
+          
+                recent_champion_options = {
+                  url: 'https://na.api.pvp.net/api/lol/static-data/' +
+                    region +
+                    '/v1.2/champion/' +
+                    most_recent_game.championId +
+                    '?api_key=' +
+                    api_key
+                };
 
-              most_recent_game = games_list[0];
-              if (!most_recent_game.stats.win){
-                wonStr = "lost";
+                request.get(recent_champion_options, function (error, response, body){
+                  var champ_json_body = JSON.parse(body);
+
+                  return callback(create_response({
+                    'summoner_id': json_body.summonerId,
+                    'summoner_name': tokens[0],
+                    'kills': most_recent_game.stats.championsKilled || 0,
+                    'deaths': most_recent_game.stats.numDeaths || 0,
+                    'assists': most_recent_game.stats.assists || 0,
+                    'won': wonStr,
+                    'champ_name': champ_json_body.name
+                  }));
+                });
               }
-        
-              recent_champion_options = {
-                url: 'https://na.api.pvp.net/api/lol/static-data/' +
-                  region +
-                  '/v1.2/champion/' +
-                  most_recent_game.championId +
-                  '?api_key=' +
-                  api_key
-              };
-
-              request.get(recent_champion_options, function (error, response, body){
-                var champ_json_body = JSON.parse(body);
-
-                return callback(create_response({
-                  'summoner_id': json_body.summonerId,
-                  'summoner_name': tokens[1],
-                  'kills': most_recent_game.stats.championsKilled || 0,
-                  'deaths': most_recent_game.stats.numDeaths || 0,
-                  'assists': most_recent_game.stats.assists || 0,
-                  'won': wonStr,
-                  'champ_name': champ_json_body.name
-                }));
-              });
+              else {
+                return callback(create_response(null, 404, 'Summoners have not played recent games together.'));
+              }
             });
           } else {
             return callback(create_response(null, 404, 'Summoners not found.'));
