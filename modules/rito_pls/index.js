@@ -178,7 +178,7 @@ module.exports = function () {
               });
             });
           } else {
-            return callback(create_response(null, 404, 'Summoners not found.'));
+            return callback(create_response(null, 404, 'Summoner(s) not found.'));
           }  
         });
       }
