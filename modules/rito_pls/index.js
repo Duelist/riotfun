@@ -200,6 +200,7 @@ module.exports = function () {
                       'champ_name': champ_json_body.name
                     }));
                   });
+                  break;
                 }
               });
             }
