@@ -38,7 +38,7 @@ module.exports = function () {
   return {
     last_game_kda: function (summoner_name, callback) {
       var tokens = summoner_name.split(' ');
-      if (tokens.length == 1){
+      if (tokens.length === 1){
         var summoner_name_options = {
           url: 'https://na.api.pvp.net/api/lol/' +
             region + 
