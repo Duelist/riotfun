@@ -188,10 +188,10 @@ module.exports = function () {
                     for (var i = 0; i < tokens.length; i++){
                       if (t !== i){
                         if (fellowStr === ""){
-                          fellowStr += "with " + token[i];
+                          fellowStr += "with " + tokens[i];
                         }
                         else {
-                          fellowStr += ", " + token[i];
+                          fellowStr += ", " + tokens[i];
                         }
                       }
                     }
@@ -203,7 +203,8 @@ module.exports = function () {
                       'assists': most_recent_game.stats.assists || 0,
                       'gameType': convertGameType(most_recent_game.subType),
                       'won': wonStr,
-                      'champ_name': champ_json_body.name
+                      'champ_name': champ_json_body.name,
+                      'fellows': fellowStr
                     }));
                   });
                 }
