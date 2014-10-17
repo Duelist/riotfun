@@ -42,7 +42,7 @@ router.post('/', function (req, res) {
             data.result.kills, '/',
             data.result.deaths, '/',
             data.result.assists,
-            data.result.fellows
+            data.result.fellows,
             '.'
           ].join('')
         );
