@@ -204,9 +204,6 @@ module.exports = function () {
                 }
               });
             }
-            if (errorFlag === true){
-              return callback (create_response(null, 404, 'No recent games found between these summoners.'));
-            }
           } else {
             return callback(create_response(null, 404, 'Summoner(s) not found.'));
           }  
