@@ -134,6 +134,7 @@ module.exports = function () {
             for (var i = 0; i < tokens.length; i++){
               summonerId[i] = json_body[tokens[i].toLowerCase()]['id'];
             }
+            errorFlag = true;
             for (var t = 0; t < tokens.length; t++){
               recent_games_options = {
                 url: 'https://na.api.pvp.net/api/lol/' +
@@ -172,6 +173,7 @@ module.exports = function () {
                   if (most_recent_game === -1){
                     break;
                   }
+                  errorFlag = false;
                   if (!most_recent_game.stats.win){
                     wonStr = "lost";
                   }
@@ -201,7 +203,9 @@ module.exports = function () {
                 }
               });
             }
-            return callback (create_response(null, 404, 'No recent games found between these summoners.'));
+            if (errorFlag === true){
+              return callback (create_response(null, 404, 'No recent games found between these summoners.'));
+            }
           } else {
             return callback(create_response(null, 404, 'Summoner(s) not found.'));
           }  
