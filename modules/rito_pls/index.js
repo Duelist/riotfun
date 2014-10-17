@@ -185,6 +185,9 @@ module.exports = function () {
                     return callback(create_response(null, 404, 'No recent games found shared by Summoner(s)'));
                   }
                   else {
+                    mostRecentGameList = mostRecentGameList.sort(function (a, b) {
+                      return a.create_date > b.create_date;
+                    });
                     most_recent_game = mostRecentGameList[0];
                     if (!most_recent_game.stats.win){
                       wonStr = "lost";
