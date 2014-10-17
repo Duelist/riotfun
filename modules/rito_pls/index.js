@@ -184,10 +184,20 @@ module.exports = function () {
 
                   request.get(recent_champion_options, function (error, response, body){
                     var champ_json_body = JSON.parse(body);
-
+                    var fellowStr = "";
+                    for (var i = 0; i < tokens.length; i++){
+                      if (t !== i){
+                        if (fellowStr === ""){
+                          fellowStr += "with " + token[i];
+                        }
+                        else {
+                          fellowStr += ", " + token[i];
+                        }
+                      }
+                    }
                     return callback(create_response({
                       'summoner_id': json_body.summonerId,
-                      'summoner_name': summoner_name,
+                      'summoner_name': tokens[t],
                       'kills': most_recent_game.stats.championsKilled || 0,
                       'deaths': most_recent_game.stats.numDeaths || 0,
                       'assists': most_recent_game.stats.assists || 0,
