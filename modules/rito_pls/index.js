@@ -172,12 +172,9 @@ module.exports = function () {
                   if (most_recent_game !== -1){
                     break;
                   }
-                }
-                if (most_recent_game !== -1){
                   if (!most_recent_game.stats.win){
                     wonStr = "lost";
                   }
-            
                   recent_champion_options = {
                     url: 'https://na.api.pvp.net/api/lol/static-data/' +
                       region +
@@ -204,6 +201,7 @@ module.exports = function () {
                 }
               });
             }
+            return callback (create_response(null, 404, 'No recent games found between these summoners.'));
           } else {
             return callback(create_response(null, 404, 'Summoner(s) not found.'));
           }  
