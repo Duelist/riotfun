@@ -181,7 +181,7 @@ module.exports = function () {
                 // Async handlings
                 completedRequests += 1;
                 if (completedRequests === tokens.length){
-                  if (mostRecentGameList[0] === 'undefined'){
+                  if (mostRecentGameList[0] === undefined){
                     return callback(create_response(null, 404, 'No recent games found shared by Summoner(s)'));
                   }
                   else {
