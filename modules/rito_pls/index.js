@@ -168,37 +168,34 @@ module.exports = function () {
                       break;
                     }
                   }
-                  if (most_recent_game === -1){
-                    break;
+                }
+                if (most_recent_game !== -1){
+                  if (!most_recent_game.stats.win){
+                    wonStr = "lost";
                   }
-                  else {
-                    if (!most_recent_game.stats.win){
-                      wonStr = "lost";
-                    }
-                    recent_champion_options = {
-                      url: 'https://na.api.pvp.net/api/lol/static-data/' +
-                        region +
-                        '/v1.2/champion/' +
-                        most_recent_game.championId +
-                        '?api_key=' +
-                        api_key
-                    };
+                  recent_champion_options = {
+                    url: 'https://na.api.pvp.net/api/lol/static-data/' +
+                      region +
+                      '/v1.2/champion/' +
+                      most_recent_game.championId +
+                      '?api_key=' +
+                      api_key
+                  };
 
-                    request.get(recent_champion_options, function (error, response, body){
-                      var champ_json_body = JSON.parse(body);
+                  request.get(recent_champion_options, function (error, response, body){
+                    var champ_json_body = JSON.parse(body);
 
-                      return callback(create_response({
-                        'summoner_id': json_body.summonerId,
-                        'summoner_name': summoner_name,
-                        'kills': most_recent_game.stats.championsKilled || 0,
-                        'deaths': most_recent_game.stats.numDeaths || 0,
-                        'assists': most_recent_game.stats.assists || 0,
-                        'gameType': convertGameType(most_recent_game.subType),
-                        'won': wonStr,
-                        'champ_name': champ_json_body.name
-                      }));
-                    });
-                  }
+                    return callback(create_response({
+                      'summoner_id': json_body.summonerId,
+                      'summoner_name': summoner_name,
+                      'kills': most_recent_game.stats.championsKilled || 0,
+                      'deaths': most_recent_game.stats.numDeaths || 0,
+                      'assists': most_recent_game.stats.assists || 0,
+                      'gameType': convertGameType(most_recent_game.subType),
+                      'won': wonStr,
+                      'champ_name': champ_json_body.name
+                    }));
+                  });
                 }
               });
             }
