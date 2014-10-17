@@ -187,7 +187,7 @@ module.exports = function () {
                     var fellowStr = "";
                     for (var i = 0; i < tokens.length; i++){
                         if (fellowStr === ""){
-                          fellowStr += " with " + tokens[i];
+                          fellowStr += tokens[i];
                         }
                         else {
                           fellowStr += ", " + tokens[i];
