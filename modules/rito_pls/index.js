@@ -186,25 +186,22 @@ module.exports = function () {
                     var champ_json_body = JSON.parse(body);
                     var fellowStr = "";
                     for (var i = 0; i < tokens.length; i++){
-                      if (t !== i){
                         if (fellowStr === ""){
                           fellowStr += " with " + tokens[i];
                         }
                         else {
                           fellowStr += ", " + tokens[i];
                         }
-                      }
                     }
                     return callback(create_response({
                       'summoner_id': json_body.summonerId,
-                      'summoner_name': tokens[t],
+                      'summoner_name': fellowStr,
                       'kills': most_recent_game.stats.championsKilled || 0,
                       'deaths': most_recent_game.stats.numDeaths || 0,
                       'assists': most_recent_game.stats.assists || 0,
                       'gameType': convertGameType(most_recent_game.subType),
                       'won': wonStr,
-                      'champ_name': champ_json_body.name,
-                      'fellows': fellowStr
+                      'champ_name': champ_json_body.name
                     }));
                   });
                 }
