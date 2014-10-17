@@ -181,11 +181,10 @@ module.exports = function () {
                 // Async handlings
                 completedRequests += 1;
                 if (completedRequests === tokens.length){
-                  if (mostRecentGameList === []){
+                  if (mostRecentGameList[0] === 'undefined'){
                     return callback(create_response(null, 404, 'No recent games found shared by Summoner(s)'));
                   }
                   else {
-                    console.log("mostRecentGameList 0:" + mostRecentGameList[0]);
                     most_recent_game = mostRecentGameList[0];
                     if (!most_recent_game.stats.win){
                       wonStr = "lost";
