@@ -134,6 +134,8 @@ module.exports = function () {
             for (var i = 0; i < tokens.length; i++){
               summonerId[i] = json_body[tokens[i].toLowerCase()]['id'];
             }
+            var completedRequests = 0;
+            var mostRecentGameList = [];
             for (var t = 0; t < tokens.length; t++){
               recent_games_options = {
                 url: 'https://na.api.pvp.net/api/lol/' +
@@ -143,7 +145,7 @@ module.exports = function () {
                   '/recent?api_key=' + 
                   api_key
               };
-
+              
               request.get(recent_games_options, function (error, response, body) {
                 var most_recent_game,
                   json_body = JSON.parse(body),
@@ -170,40 +172,51 @@ module.exports = function () {
                   }
                 }
                 if (most_recent_game !== -1){
-                  if (!most_recent_game.stats.win){
-                    wonStr = "lost";
+                  mostRecentGameList.push(most_recent_game);
+                }
+                // Async handlings
+                completedRequests += 1;
+                if (completedRequests === tokens.length){
+                  if (mostRecentGameList === []){
+                    return callback(create_response(null, 404, 'No recent games found shared by Summoner(s)'));
                   }
-                  recent_champion_options = {
-                    url: 'https://na.api.pvp.net/api/lol/static-data/' +
-                      region +
-                      '/v1.2/champion/' +
-                      most_recent_game.championId +
-                      '?api_key=' +
-                      api_key
-                  };
-
-                  request.get(recent_champion_options, function (error, response, body){
-                    var champ_json_body = JSON.parse(body);
-                    var fellowStr = "";
-                    for (var i = 0; i < tokens.length; i++){
-                        if (fellowStr === ""){
-                          fellowStr += tokens[i];
-                        }
-                        else {
-                          fellowStr += ", " + tokens[i];
-                        }
+                  else {
+                    most_recent_game = mostRecentGameList[0];
+                    if (!most_recent_game.stats.win){
+                      wonStr = "lost";
                     }
-                    return callback(create_response({
-                      'summoner_id': json_body.summonerId,
-                      'summoner_name': fellowStr,
-                      'kills': most_recent_game.stats.championsKilled || 0,
-                      'deaths': most_recent_game.stats.numDeaths || 0,
-                      'assists': most_recent_game.stats.assists || 0,
-                      'gameType': convertGameType(most_recent_game.subType),
-                      'won': wonStr,
-                      'champ_name': champ_json_body.name
-                    }));
-                  });
+                    recent_champion_options = {
+                      url: 'https://na.api.pvp.net/api/lol/static-data/' +
+                        region +
+                        '/v1.2/champion/' +
+                        most_recent_game.championId +
+                        '?api_key=' +
+                        api_key
+                    };
+
+                    request.get(recent_champion_options, function (error, response, body){
+                      var champ_json_body = JSON.parse(body);
+                      var fellowStr = "";
+                      for (var i = 0; i < tokens.length; i++){
+                          if (fellowStr === ""){
+                            fellowStr += tokens[i];
+                          }
+                          else {
+                            fellowStr += ", " + tokens[i];
+                          }
+                      }
+                      return callback(create_response({
+                        'summoner_id': json_body.summonerId,
+                        'summoner_name': fellowStr,
+                        'kills': most_recent_game.stats.championsKilled || 0,
+                        'deaths': most_recent_game.stats.numDeaths || 0,
+                        'assists': most_recent_game.stats.assists || 0,
+                        'gameType': convertGameType(most_recent_game.subType),
+                        'won': wonStr,
+                        'champ_name': champ_json_body.name
+                      }));
+                    });
+                  }
                 }
               });
             }
