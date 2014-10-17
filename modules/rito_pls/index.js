@@ -38,7 +38,7 @@ module.exports = function () {
   return {
     last_game_kda: function (summoner_name, callback) {
       var tokens = summoner_name.split(' ');
-      if (tokens.length == 1){
+      if (tokens.length === 1){
         var summoner_name_options = {
           url: 'https://na.api.pvp.net/api/lol/' +
             region + 
@@ -160,20 +160,20 @@ module.exports = function () {
                   for (var j = 0; j < summonerId.length; j++){
                     var matchedPlayers = [tokens[t]];
                     for (var k = 0; k < fellowPlayers.length; k++){
-                      if (summonerId[j] == fellowPlayers[k]['summonerId']){
+                      if (summonerId[j] === fellowPlayers[k]['summonerId']){
                         matchedPlayers.push(summonerId[j]);
                       }
                     }
-                    if (matchedPlayers.length == summonerId.length){
+                    if (matchedPlayers.length === summonerId.length){
                       most_recent_game = games_list[i];
                       break;
                     }
                   }
-                  if (most_recent_game != -1){
+                  if (most_recent_game !== -1){
                     break;
                   }
                 }
-                if (most_recent_game != -1){
+                if (most_recent_game !== -1){
                   if (!most_recent_game.stats.win){
                     wonStr = "lost";
                   }

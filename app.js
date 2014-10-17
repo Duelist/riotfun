@@ -22,7 +22,7 @@ router.post('/', function (req, res) {
   for (var i = 3; i < tokens.length; i++){
     param += " " + tokens[i];
   }  
-  if (command == "rkda"){
+  if (command === "rkda"){
     rito_pls.last_game_kda(param, function (data) {
       var options = {
         url: process.env.POST_ENDPOINT
@@ -67,7 +67,7 @@ router.post('/', function (req, res) {
       });
     });
   }
-  else if (command == "summon"){
+  else if (command === "summon"){
     rito_pls.champion_summon(param, function(data){
       var options = {
         url: process.env.POST_ENDPOINT
