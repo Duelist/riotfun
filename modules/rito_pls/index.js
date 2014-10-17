@@ -172,6 +172,7 @@ module.exports = function () {
                   }
                 }
                 if (most_recent_game !== -1){
+                  console.log("mostRecentGame:" + most_recent_game);
                   mostRecentGameList.push(most_recent_game);
                 }
                 // Async handlings
@@ -181,6 +182,7 @@ module.exports = function () {
                     return callback(create_response(null, 404, 'No recent games found shared by Summoner(s)'));
                   }
                   else {
+                    console.log("mostRecentGameList 0:" + mostRecentGameList[0]);
                     most_recent_game = mostRecentGameList[0];
                     if (!most_recent_game.stats.win){
                       wonStr = "lost";
