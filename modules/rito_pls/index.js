@@ -170,6 +170,9 @@ module.exports = function () {
                       break;
                     }
                   }
+                  if (most_recent_game !== -1){
+                    break;
+                  }
                 }
                 if (most_recent_game !== -1){
                   console.log("mostRecentGame:" + most_recent_game);
