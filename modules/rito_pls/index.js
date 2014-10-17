@@ -169,7 +169,7 @@ module.exports = function () {
                       break;
                     }
                   }
-                  if (most_recent_game !== -1){
+                  if (most_recent_game === -1){
                     break;
                   }
                   if (!most_recent_game.stats.win){
