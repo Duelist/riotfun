@@ -156,6 +156,7 @@ module.exports = function () {
                 });
                 
                 most_recent_game = -1;
+                matchedChampionIds = [most_recent_game.championId];
                 for (var i = 0; i < games_list.length; i++){
                   var fellowPlayers = games_list[i].fellowPlayers;
                   for (var j = 0; j < summonerId.length; j++){
@@ -163,6 +164,7 @@ module.exports = function () {
                     for (var k = 0; k < fellowPlayers.length; k++){
                       if (summonerId[j] === fellowPlayers[k]['summonerId']){
                         matchedPlayers.push(summonerId[j]);
+                        matchedChampionIds.push(fellowPlayers[k]['championId']);
                       }
                     }
                     if (matchedPlayers.length === summonerId.length){
@@ -175,7 +177,6 @@ module.exports = function () {
                   }
                 }
                 if (most_recent_game !== -1){
-                  console.log("mostRecentGame:" + most_recent_game);
                   mostRecentGameList.push(most_recent_game);
                 }
                 // Async handlings
@@ -192,37 +193,63 @@ module.exports = function () {
                     if (!most_recent_game.stats.win){
                       wonStr = "lost";
                     }
-                    recent_champion_options = {
-                      url: 'https://na.api.pvp.net/api/lol/static-data/' +
-                        region +
-                        '/v1.2/champion/' +
-                        most_recent_game.championId +
-                        '?api_key=' +
-                        api_key
-                    };
-
-                    request.get(recent_champion_options, function (error, response, body){
-                      var champ_json_body = JSON.parse(body);
-                      var fellowStr = "";
-                      for (var i = 0; i < tokens.length; i++){
-                          if (fellowStr === ""){
-                            fellowStr += tokens[i];
-                          }
-                          else {
-                            fellowStr += ", " + tokens[i];
-                          }
+                    
+                    var mainChamp = "";
+                    var remainingChamps = [];
+                    var fellowStr = "";
+                    for (var i = 0; i < tokens.length; i++){
+                      if (fellowStr === ""){
+                        fellowStr += tokens[i];
                       }
-                      return callback(create_response({
-                        'summoner_id': json_body.summonerId,
-                        'summoner_name': fellowStr,
-                        'kills': most_recent_game.stats.championsKilled || 0,
-                        'deaths': most_recent_game.stats.numDeaths || 0,
-                        'assists': most_recent_game.stats.assists || 0,
-                        'gameType': convertGameType(most_recent_game.subType),
-                        'won': wonStr,
-                        'champ_name': champ_json_body.name
-                      }));
-                    });
+                      else {
+                        fellowStr += ", " + tokens[i];
+                      }
+                    }
+                    for (var z = 0; z < matchedChampionIds.length; z++){
+                      recent_champion_options = {
+                        url: 'https://na.api.pvp.net/api/lol/static-data/' +
+                          region +
+                          '/v1.2/champion/' +
+                          matchedChampionIds[z] +
+                          '?api_key=' +
+                          api_key
+                      };
+                      var completed_champ_requests = 0;
+                      request.get(recent_champion_options, function (error, response, body){
+                        var champ_json_body = JSON.parse(body);
+                        
+                        if (completed_champ_requests === 0){
+                          completed_champ_requests += 1;
+                          mainChamp = champ_json_body.name;
+                        }else {
+                          completed_champ_requests += 1;
+                          remainingChamps.push(champ_json_body.name);
+                        }
+                        if(completed_champ_requests === tokens.length){
+                          remainChamp = "";
+                          for (var i = 0; i < remainingChamps.length; i++){
+                            if (remainChamp === ""){
+                              remainChamp += remainingChamps[i];
+                            }
+                            else {
+                              remainChamp += ", " + remainingChamps[i];
+                            }
+                          }
+                        
+                          return callback(create_response({
+                            'summoner_id': json_body.summonerId,
+                            'summoner_name': fellowStr,
+                            'kills': most_recent_game.stats.championsKilled || 0,
+                            'deaths': most_recent_game.stats.numDeaths || 0,
+                            'assists': most_recent_game.stats.assists || 0,
+                            'gameType': convertGameType(most_recent_game.subType),
+                            'won': wonStr,
+                            'champ_name': mainChamp,
+                            'remain_champ_name': remainChamp
+                          }));
+                        }
+                      });
+                    }
                   }
                 }
               });
