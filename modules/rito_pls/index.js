@@ -205,12 +205,12 @@ module.exports = function () {
                         fellowStr += ", " + tokens[i];
                       }
                     }
-                    for (var z = 0; z < matchedChampionIds.length; z++){
+                    //for (var z = 0; z < matchedChampionIds.length; z++){
                       recent_champion_options = {
                         url: 'https://na.api.pvp.net/api/lol/static-data/' +
                           region +
                           '/v1.2/champion/' +
-                          matchedChampionIds[z] +
+                          matchedChampionIds[0] +
                           '?api_key=' +
                           api_key
                       };
@@ -224,7 +224,7 @@ module.exports = function () {
                           completed_champ_requests += 1;
                           remainingChamps.push(champ_json_body.name);
                         }
-                        if(completed_champ_requests === tokens.length){
+                        //if(completed_champ_requests === tokens.length){
                           var remainChamp = "";
                           for (var i = 0; i < remainingChamps.length; i++){
                             if (remainChamp === ""){
@@ -244,11 +244,11 @@ module.exports = function () {
                             'gameType': convertGameType(most_recent_game.subType),
                             'won': wonStr,
                             'champ_name': mainChamp,
-                            'remain_champ_name': remainChamp
+                            //'remain_champ_name': remainChamp
                           }));
-                        }
+                       // }
                       });
-                    }
+                    //}
                   }
                 }
               });
