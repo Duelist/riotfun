@@ -217,7 +217,6 @@ module.exports = function () {
                       var completed_champ_requests = 0;
                       request.get(recent_champion_options, function (error, response, body){
                         var champ_json_body = JSON.parse(body);
-                        
                         if (completed_champ_requests === 0){
                           completed_champ_requests += 1;
                           mainChamp = champ_json_body.name;
