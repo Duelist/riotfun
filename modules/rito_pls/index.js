@@ -225,7 +225,7 @@ module.exports = function () {
                           remainingChamps.push(champ_json_body.name);
                         }
                         if(completed_champ_requests === tokens.length){
-                          remainChamp = "";
+                          var remainChamp = "";
                           for (var i = 0; i < remainingChamps.length; i++){
                             if (remainChamp === ""){
                               remainChamp += remainingChamps[i];
