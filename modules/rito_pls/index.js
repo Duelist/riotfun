@@ -157,16 +157,13 @@ module.exports = function () {
                 });
                 
                 most_recent_game = -1;
-                var matchedChampionIds = [];
                 for (var i = 0; i < games_list.length; i++){
                   var fellowPlayers = games_list[i].fellowPlayers;
-                  matchedChampionIds.push(games_list[i].championId);
                   for (var j = 0; j < summonerId.length; j++){
                     var matchedPlayers = [tokens[t]];
                     for (var k = 0; k < fellowPlayers.length; k++){
                       if (summonerId[j] === fellowPlayers[k]['summonerId']){
                         matchedPlayers.push(summonerId[j]);
-                        matchedChampionIds.push(fellowPlayers[k]['championId']);
                       }
                     }
                     if (matchedPlayers.length === summonerId.length){
@@ -198,6 +195,16 @@ module.exports = function () {
                     
                     var mainChamp = "";
                     var remainingChamps = [];
+                    var matchedChampionIds = [most_recent_game.championId];
+                    var fellowPlayers = most_recent_game.fellowPlayers;
+                    for (var j = 0; j < summonerId.length; j++){
+                      for (var k = 0; k < fellowPlayers.length; k++){
+                        if (summonerId[j] === fellowPlayers[k]['summonerId']){
+                          matchedChampionIds.push(fellowPlayers[k]['championId']);
+                        }
+                      }
+                    }
+                    
                     var fellowStr = "";
                     for (var i = 0; i < tokens.length; i++){
                       if (fellowStr === ""){
