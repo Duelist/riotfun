@@ -157,9 +157,10 @@ module.exports = function () {
                 });
                 
                 most_recent_game = -1;
-                matchedChampionIds = [most_recent_game.championId];
+                var matchedChampionIds = [];
                 for (var i = 0; i < games_list.length; i++){
                   var fellowPlayers = games_list[i].fellowPlayers;
+                  matchedChampionIds.push(games_list[i].championId);
                   for (var j = 0; j < summonerId.length; j++){
                     var matchedPlayers = [tokens[t]];
                     for (var k = 0; k < fellowPlayers.length; k++){
