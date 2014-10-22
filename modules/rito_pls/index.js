@@ -188,7 +188,21 @@ module.exports = function () {
                     mostRecentGameList = mostRecentGameList.sort(function (a, b) {
                       return a.create_date > b.create_date;
                     });
+                    
                     most_recent_game = mostRecentGameList[0];
+                    for (var i = 0; i < mostRecentGameList.length; i++){
+                      var gameOwner = true;
+                      for (var j = 0; j < mostRecentGameList[i].fellowPlayers.length; j++){
+                        if (mostRecentGameList[i].fellowPlayers[j] === json_body.summonerId){
+                          gameOwner = false;
+                        }
+                      }
+                      if (gameOwner === true){
+                        most_recent_game = mostRecentGameList[i];
+                        break;
+                      }
+                    }
+                    
                     if (!most_recent_game.stats.win){
                       wonStr = "lost";
                     }
