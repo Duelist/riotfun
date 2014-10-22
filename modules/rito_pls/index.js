@@ -193,7 +193,7 @@ module.exports = function () {
                     for (var i = 0; i < mostRecentGameList.length; i++){
                       var gameOwner = true;
                       for (var j = 0; j < mostRecentGameList[i].fellowPlayers.length; j++){
-                        if (mostRecentGameList[i].fellowPlayers[j].summonerId === json_body.summonerId[0]){
+                        if (mostRecentGameList[i].fellowPlayers[j]['summonerId'] === summonerId[0]){
                           gameOwner = false;
                         }
                       }
