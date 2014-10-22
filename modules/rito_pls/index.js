@@ -240,13 +240,14 @@ module.exports = function () {
                       var completed_champ_requests = 0;
                       request.get(recent_champion_options, function (error, response, body){
                         var champ_json_body = JSON.parse(body);
-                        if (completed_champ_requests === 0){
-                          completed_champ_requests += 1;
-                          mainChamp = champ_json_body.name;
-                        }else {
-                          completed_champ_requests += 1;
+                        completed_champ_requests += 1;
+                        if (most_recent_game.championId === champ_json_body.id){
+                          mainChamp = champ_json_body.name
+                        }
+                        else{
                           remainingChamps.push(champ_json_body.name);
                         }
+                        
                         if(completed_champ_requests === matchedChampionIds.length){
                           var remainChamp = "";
                           for (var i = 0; i < remainingChamps.length; i++){
