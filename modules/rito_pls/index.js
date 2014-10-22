@@ -247,7 +247,7 @@ module.exports = function () {
                           completed_champ_requests += 1;
                           remainingChamps.push(champ_json_body.name);
                         }
-                        if(completed_champ_requests === tokens.length){
+                        if(completed_champ_requests === matchedChampionIds.length){
                           var remainChamp = "";
                           for (var i = 0; i < remainingChamps.length; i++){
                             if (remainChamp === ""){
