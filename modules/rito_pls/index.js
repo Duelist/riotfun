@@ -80,7 +80,7 @@ module.exports = function () {
                 wonStr = "lost";
               }
         
-              recent_champion_options = {
+              var recent_champion_options = {
                 url: 'https://na.api.pvp.net/api/lol/static-data/' +
                   region +
                   '/v1.2/champion/' +
@@ -207,7 +207,7 @@ module.exports = function () {
                       }
                     }
                     //for (var z = 0; z < matchedChampionIds.length; z++){
-                      recent_champion_options = {
+                      var recent_champion_options = {
                         url: 'https://na.api.pvp.net/api/lol/static-data/' +
                           region +
                           '/v1.2/champion/' +
@@ -229,7 +229,7 @@ module.exports = function () {
                           var remainChamp = "";
                           for (var i = 0; i < remainingChamps.length; i++){
                             if (remainChamp === ""){
-                              remainChamp += remainingChamps[i];
+                              remainChamp += ' with ' + remainingChamps[i];
                             }
                             else {
                               remainChamp += ", " + remainingChamps[i];
