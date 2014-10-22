@@ -214,7 +214,7 @@ module.exports = function () {
                     for (var j = 0; j < summonerId.length; j++){
                       for (var k = 0; k < fellowPlayers.length; k++){
                         if (summonerId[j] === fellowPlayers[k]['summonerId']){
-                          matchedChampionIds.push(fellowPlayers[k]['championId']);
+                          //matchedChampionIds.push(fellowPlayers[k]['championId']);
                         }
                       }
                     }
