@@ -193,7 +193,7 @@ module.exports = function () {
                     for (var i = 0; i < mostRecentGameList.length; i++){
                       var gameOwner = true;
                       for (var j = 0; j < mostRecentGameList[i].fellowPlayers.length; j++){
-                        if (mostRecentGameList[i].fellowPlayers[j].summonerId === json_body.summonerId){
+                        if (mostRecentGameList[i].fellowPlayers[j].summonerId === json_body.summonerId[0]){
                           gameOwner = false;
                         }
                       }
@@ -252,7 +252,7 @@ module.exports = function () {
                           var remainChamp = "";
                           for (var i = 0; i < remainingChamps.length; i++){
                             if (remainChamp === ""){
-                              remainChamp += ' with ' + remainingChamps[i] + " ";
+                              remainChamp += 'with ' + remainingChamps[i] + " ";
                             }
                             else {
                               remainChamp += ", " + remainingChamps[i] + " ";
