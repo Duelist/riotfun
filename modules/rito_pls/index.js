@@ -212,7 +212,7 @@ module.exports = function () {
                         url: 'https://na.api.pvp.net/api/lol/static-data/' +
                           region +
                           '/v1.2/champion/' +
-                          matchedChampionIds[0] +
+                          matchedChampionIds[z] +
                           '?api_key=' +
                           api_key
                       };
@@ -230,10 +230,10 @@ module.exports = function () {
                           var remainChamp = "";
                           for (var i = 0; i < remainingChamps.length; i++){
                             if (remainChamp === ""){
-                              remainChamp += ' with ' + remainingChamps[i];
+                              remainChamp += ' with ' + remainingChamps[i] + " ";
                             }
                             else {
-                              remainChamp += ", " + remainingChamps[i];
+                              remainChamp += ", " + remainingChamps[i] + " ";
                             }
                           }
                         
