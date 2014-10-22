@@ -166,7 +166,7 @@ module.exports = function () {
                         matchedPlayers.push(summonerId[j]);
                       }
                     }
-                    if (matchedPlayers.length === summonerId.length){
+                    if (matchedPlayers.length >= summonerId.length - 1){
                       most_recent_game = games_list[i];
                       break;
                     }
