@@ -206,7 +206,6 @@ module.exports = function () {
                         fellowStr += ", " + tokens[i];
                       }
                     }
-                    //for (var z = 0; z < matchedChampionIds.length; z++){
                       var recent_champion_options = {
                         url: 'https://na.api.pvp.net/api/lol/static-data/' +
                           region +
@@ -249,7 +248,6 @@ module.exports = function () {
                           }));
                        // }
                       });
-                    //}
                   }
                 }
               });
