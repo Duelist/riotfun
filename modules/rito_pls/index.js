@@ -207,7 +207,7 @@ module.exports = function () {
                         fellowStr += ", " + tokens[i];
                       }
                     }
-                    //for (var z = 0; z < matchedChampionIds.length; z++){
+                    for (var z = 0; z < matchedChampionIds.length; z++){
                       var recent_champion_options = {
                         url: 'https://na.api.pvp.net/api/lol/static-data/' +
                           region +
@@ -226,16 +226,16 @@ module.exports = function () {
                           completed_champ_requests += 1;
                           remainingChamps.push(champ_json_body.name);
                         }
-                        //if(completed_champ_requests === tokens.length){
+                        if(completed_champ_requests === tokens.length){
                           var remainChamp = "";
-                          /*for (var i = 0; i < remainingChamps.length; i++){
+                          for (var i = 0; i < remainingChamps.length; i++){
                             if (remainChamp === ""){
                               remainChamp += ' with ' + remainingChamps[i];
                             }
                             else {
                               remainChamp += ", " + remainingChamps[i];
                             }
-                          }*/
+                          }
                         
                           return callback(create_response({
                             'summoner_id': json_body.summonerId,
@@ -248,9 +248,9 @@ module.exports = function () {
                             'champ_name': mainChamp,
                             'remain_champ_name': remainChamp
                           }));
-                       // }
+                        }
                       });
-                    //}
+                    }
                   }
                 }
               });
