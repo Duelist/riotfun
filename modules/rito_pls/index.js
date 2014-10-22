@@ -100,7 +100,8 @@ module.exports = function () {
                   'assists': most_recent_game.stats.assists || 0,
                   'gameType': convertGameType(most_recent_game.subType),
                   'won': wonStr,
-                  'champ_name': champ_json_body.name
+                  'champ_name': champ_json_body.name,
+                  'remain_champ_name': ''
                 }));
               });
             });
@@ -244,7 +245,7 @@ module.exports = function () {
                             'gameType': convertGameType(most_recent_game.subType),
                             'won': wonStr,
                             'champ_name': mainChamp,
-                            //'remain_champ_name': remainChamp
+                            'remain_champ_name': remainChamp
                           }));
                        // }
                       });
